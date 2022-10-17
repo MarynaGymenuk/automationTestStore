@@ -1,4 +1,6 @@
-class RegistrationPage {
+import BasePage from "./BasePage";
+
+class RegistrationPage extends BasePage {
 
     getRegisterButton(){
         return cy.get('#accountFrm button'); 
@@ -92,8 +94,8 @@ class RegistrationPage {
         this.getConfirmPasswordField().type(password);
     }
 
-    setSubscribe(boolean){
-        if (boolean) {
+    setSubscribe(isSubscribed){
+        if (isSubscribed) {
             cy.get('#AccountFrm_newsletter1').click();
         }
         else {
@@ -113,7 +115,7 @@ class RegistrationPage {
         cy.get('button[title="Continue"]').click();
     }
 
-    registerNewUser(user, region, country, boolean){
+    registerNewUser(user, region, country, isSubscribed){
         this.setFirstName(user.firstName);
         this.setLastName(user.lastName);
         this.setEmail(user.email);
@@ -125,7 +127,7 @@ class RegistrationPage {
         this.setLoginName(user.loginName);
         this.setPassword(user.password);
         this.setConfirmPassword(user.password);
-        this.setSubscribe(boolean);
+        this.setSubscribe(isSubscribed);
         this.checkPrivacyPolicyCheckbox();
         this.clickSubmitButton();
     }

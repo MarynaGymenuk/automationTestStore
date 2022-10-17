@@ -1,6 +1,5 @@
 ///<reference types="cypress"/>
 import registrationPage from '../support/pages/RegistrationPage';
-import authorizationPage from '../support/pages/AuthorizationPage';
 import {userWithFaker} from "../support/userWithFaker";
 import {faker} from '@faker-js/faker';
 
@@ -18,7 +17,7 @@ const user = {
 it('Registration', () => {
   cy.visit('/');
 
-  authorizationPage.getAuthorizationBtnFromHeader().click();
+  registrationPage.getAuthorizationBtnFromHeader().click();
   registrationPage.getRegisterButton().click();
 
   registrationPage.registerNewUser(user, 1, 'United Kingdom', false);
@@ -30,7 +29,7 @@ it('Registration with faker.js', () => {
   cy.visit('/');
 
   cy.log("**Open registration page**");
-  authorizationPage.getAuthorizationBtnFromHeader().click();
+  registrationPage.getAuthorizationBtnFromHeader().click();
   registrationPage.getRegisterButton().click();
 
   cy.log("**Fill the registration form**");

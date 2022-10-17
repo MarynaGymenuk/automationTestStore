@@ -2,10 +2,6 @@ import BasePage from "./BasePage";
 
 class AuthorizationPage extends BasePage{
 
-    getAuthorizationBtnFromHeader(){
-        return cy.get('#customer_menu_top');
-    }
-
     visit(){
         cy.log('**Open login page**');
         cy.visit('/index.php?rt=account/login');

@@ -1,32 +1,33 @@
 ///<reference types="cypress"/>
 import user from '../fixtures/user.json';
-import {searchExistingProduct} from '../support/helper';
-import BasePage from '../support/pages/BasePage';
+import orderPage from '../support/pages/OrderPage';
+import authorizationPage from '../support/pages/AuthorizationPage';
 
 it('Place order', () => {
-    const basePage = new BasePage();
+    authorizationPage.visit();
+    authorizationPage.submitLoginForm(user.userName, user.password);
 
-    cy.setCookie("AC_SF_8CEFDA09D5", user.AC_SF_8CEFDA09D5);
     cy.visit('/index.php?rt=product/product&product_id=52');
     
-    basePage.makeOrder(4);
-    basePage.getOrderSuccessMessage().should('contain', 'Your Order Has Been Processed!');
-    basePage.getOrderText().should('contain', 'Thank you for shopping with us!')
+    orderPage.makeOrder(4);
+    orderPage.getOrderSuccessMessage().should('contain', 'Your Order Has Been Processed!');
+    orderPage.getOrderText().should('contain', 'Thank you for shopping with us!')
     .and('contain', 'Your order ')
     .and('contain', 'has been created!');
 });
 
 it('Place order via search', () => {
-    const basePage = new BasePage();
+    const productName = 'Benefit Bella Bamba'
+
+    authorizationPage.visit();
+    authorizationPage.submitLoginForm(user.userName, user.password);
+  
+    orderPage.performSearch(productName);
+    orderPage.getProductName().should('contain', productName);
     
-    cy.setCookie("AC_SF_8CEFDA09D5", user.AC_SF_8CEFDA09D5);
-    cy.visit('/');
-    
-    searchExistingProduct('Benefit Bella Bamba');
-    
-    basePage.makeOrder(4);
-    basePage.getOrderSuccessMessage().should('contain', 'Your Order Has Been Processed!');
-    basePage.getOrderText().should('contain', 'Thank you for shopping with us!')
+    orderPage.makeOrder(4);
+    orderPage.getOrderSuccessMessage().should('contain', 'Your Order Has Been Processed!');
+    orderPage.getOrderText().should('contain', 'Thank you for shopping with us!')
     .and('contain', 'Your order ')
     .and('contain', 'has been created!');
 });
