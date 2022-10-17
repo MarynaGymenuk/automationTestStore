@@ -37,6 +37,10 @@ class AuthorizationPage extends BasePage{
         cy.log(`Click login button`);
         this.getLoginButton().click();
     }
+
+    getErrorNotification(){
+        return cy.get('.alert-error');
+    }
 }
 
 export default new AuthorizationPage();
