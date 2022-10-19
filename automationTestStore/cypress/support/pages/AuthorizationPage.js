@@ -1,6 +1,7 @@
 import BasePage from "./BasePage";
 
 class AuthorizationPage extends BasePage{
+
     visit(){
         cy.log('**Open login page**');
         cy.visit('/index.php?rt=account/login');
@@ -36,5 +37,10 @@ class AuthorizationPage extends BasePage{
         cy.log(`Click login button`);
         this.getLoginButton().click();
     }
+
+    getErrorNotification(){
+        return cy.get('.alert-error');
+    }
 }
+
 export default new AuthorizationPage();

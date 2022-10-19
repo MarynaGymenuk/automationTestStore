@@ -1,10 +1,11 @@
 ///<reference types="cypress"/>
 import user from '../fixtures/user.json';
-import {searchExistingProduct} from '../support/helper'
+import {searchExistingProduct} from '../support/helper';
+import authorizationPage from '../support/pages/AuthorizationPage';
 
 it('Place order', () => {
-
-  cy.setCookie("AC_SF_8CEFDA09D5", user.AC_SF_8CEFDA09D5);
+  authorizationPage.visit();
+  authorizationPage.submitLoginForm(user.userName, user.password);
 
   cy.visit('/index.php?rt=product/product&product_id=52');
 
@@ -22,11 +23,9 @@ it('Place order', () => {
 })
 
 it('Place order via search', () => {
-
-  cy.setCookie("AC_SF_8CEFDA09D5", user.AC_SF_8CEFDA09D5);
-
-  cy.visit('/');
-
+  authorizationPage.visit();
+  authorizationPage.submitLoginForm(user.userName, user.password);
+ 
   searchExistingProduct('Benefit Bella Bamba');
 
   cy.get('#product_quantity').clear().type('4');
